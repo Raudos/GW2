@@ -8,7 +8,8 @@ import combineReducer from 'src/redux/reducers/index';
 const initialStoreObj = {
   account: null,
   apiKey: null,
-  dailies: null
+  dailies: null,
+  exchange: null
 };
 
 export const initialStore = initialStoreObj;

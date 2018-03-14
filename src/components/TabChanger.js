@@ -50,14 +50,14 @@ export default class TabView extends React.Component {
           color: "black"
         }}
       />
-    )
-  }
+    );
+  };
 
   renderScene = ({ layout, route }) => {
     if (layout.measured) {
       const PickedComponent = this.props.components[route.key] || null;
 
-      return <PickedComponent {...this.props} activeTab={route.key} currentComponent={this.props.tabs[this.state.index].key} />
+      return <PickedComponent {...this.props} activeTab={route.key} currentComponent={this.props.tabs[this.state.index].key} />;
     }
 
     return <LoaderComponent loadingText="Loading"/>;

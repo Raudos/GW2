@@ -44,11 +44,9 @@ export const downloadDailies = () => {
           data: groupDailiesIntoCategories(detailedDailyData.data, basicDailyData.data)
         });
       }).catch(e => {
-        console.log(e);
         // TODO
       });
     }).catch(e => {
-      console.log(e);
         // TODO
     });
   };

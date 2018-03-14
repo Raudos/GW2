@@ -7,12 +7,15 @@ import PropTypes from 'prop-types';
 // Components
 import KeyManager from "src/components/KeyManager/index";
 import Dailies from 'src/components/Dailies/index';
+import Exchange from 'src/components/Exchange/index';
 
 // Other
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
 
 const Navigator = DrawerNavigator({
-
+  Exchange: {
+    screen: Exchange
+  },
   Dailies: {
     screen: Dailies
   },

@@ -26,5 +26,7 @@ Research needed for suplementary data source like avatars, images, icons and flu
   * Characters status
   * Guilds status and current GMOTD
   * Achievements
-  * Exchange rates on gems vs gold
+  * Exchange
+    * <del>Predefined amounts</del>
+    * Input by user
   * Event Timer

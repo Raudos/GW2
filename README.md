@@ -19,7 +19,8 @@ Research needed for suplementary data source like avatars, images, icons and flu
 * <del>API key storage</del>
 * App Design and color scheme
 * Routing and application structure
-  * Dailies
+  * <del>Dailies</del>
+  * Fractals
   * Trading Post
   * Item search across all Characters
   * Characters status

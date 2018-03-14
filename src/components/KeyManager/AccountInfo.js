@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Button } from "react-native";
+import PropTypes from 'prop-types';
 
-export default props => {
+const AccountInfo = props => {
   const { account, deleteKey } = props;
 
   return (
@@ -19,4 +20,11 @@ export default props => {
       />
     </View>
   );
+};
+
+export default AccountInfo;
+
+AccountInfo.propTypes = {
+  account: PropTypes.object.isRequired,
+  deleteKey: PropTypes.func.isRequired
 };

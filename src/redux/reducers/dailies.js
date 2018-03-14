@@ -1,10 +1,8 @@
 
 export default (state, action) => {
   switch (action.type) {
-    case 'addKey':
-      return action.data.account;
-    case 'removeKey':
-      return false;
+    case 'downloadDailies':
+      return action.data;
   default:
     return state;
   }

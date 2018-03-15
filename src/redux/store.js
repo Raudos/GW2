@@ -9,7 +9,8 @@ const initialStoreObj = {
   account: null,
   apiKey: null,
   dailies: null,
-  exchange: null
+  exchange: null,
+  characters: null
 };
 
 export const initialStore = initialStoreObj;

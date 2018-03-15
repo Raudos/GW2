@@ -22,11 +22,16 @@ Research needed for suplementary data source like avatars, images, icons and flu
   * <del>Dailies</del>
   * Fractals
   * Trading Post
-  * Item search across all Characters
   * Characters status
+    * <del>Characters list</del>
+    * Item search across all Characters
+    * Characters bags, eq
   * Guilds status and current GMOTD
   * Achievements
   * Exchange
     * <del>Predefined amounts</del>
     * <del>Input by user</del>
   * Event Timer
+  * Raids
+    * Raids list
+    * Raids reset + raids account status

@@ -33,5 +33,5 @@ Research needed for suplementary data source like avatars, images, icons and flu
     * <del>Input by user</del>
   * Event Timer
   * Raids
-    * Raids list
-    * Raids reset + raids account status
+    * <del>Raids list</del>
+    * <del>Raids reset + raids account status</del>

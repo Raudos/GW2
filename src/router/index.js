@@ -9,11 +9,15 @@ import KeyManager from "src/components/KeyManager/index";
 import Dailies from 'src/components/Dailies/index';
 import Exchange from 'src/components/Exchange/index';
 import Characters from "src/components/Characters/index";
+import Raids from "src/components/Raids/index";
 
 // Other
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
 
 const Navigator = DrawerNavigator({
+  Raids: {
+    screen: Raids
+  },
   Characters: {
     screen: Characters
   },

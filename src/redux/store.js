@@ -10,7 +10,8 @@ const initialStoreObj = {
   apiKey: null,
   dailies: null,
   exchange: null,
-  characters: null
+  characters: null,
+  raids: null
 };
 
 export const initialStore = initialStoreObj;

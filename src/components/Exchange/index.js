@@ -8,7 +8,7 @@ import Coins from "src/components/Exchange/Coins";
 import Gems from "src/components/Exchange/Gems";
 
 // Other
-import { getExchangeRates } from "src/redux/actions/exchange";
+import { getExchangeRates, coinsToGems, gemsToCoins } from "src/redux/actions/exchange";
 
 @Container({
   isLoading: that => !that.props.exchange,
@@ -19,7 +19,7 @@ import { getExchangeRates } from "src/redux/actions/exchange";
     mapStateToProps: (state, ownProps) => ({
       exchange: state.exchange
     }),
-    actions: { getExchangeRates }
+    actions: { getExchangeRates, coinsToGems, gemsToCoins }
   }
 })
 class Exchange extends React.Component {
@@ -27,6 +27,8 @@ class Exchange extends React.Component {
     return (
       <Tabs
         exchange={this.props.exchange}
+        coinsToGems={this.props.coinsToGems}
+        gemsToCoins={this.props.gemsToCoins}
         tabs={[
           {key: 'coins', title: "Gold"},
           {key: 'gems', title: "Gems"},

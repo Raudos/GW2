@@ -28,5 +28,5 @@ Research needed for suplementary data source like avatars, images, icons and flu
   * Achievements
   * Exchange
     * <del>Predefined amounts</del>
-    * Input by user
+    * <del>Input by user</del>
   * Event Timer

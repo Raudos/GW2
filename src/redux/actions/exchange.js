@@ -14,17 +14,30 @@ function fetchGems(int) {
 
 export const coinsToGems = int => {
   return (dispatch, getState) => {
-    fetchCoins(int).then(apiData => {
-
-    });
+    // Convert to gold
+    fetchCoins(int * 10000).then(apiData => {
+      dispatch({
+        type: "downloadUserCoins",
+        data: {
+          int,
+          ...apiData.data
+        }
+      });
+    }).catch(e => console.log(e));
   };
 };
 
 export const gemsToCoins = int => {
   return (dispatch, getState) => {
     fetchGems(int).then(apiData => {
-
-    });
+      dispatch({
+        type: "downloadUserGems",
+        data: {
+          int,
+          ...apiData.data
+        }
+      });
+    }).catch(e => console.log(e));
   };
 };
 

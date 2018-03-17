@@ -1,48 +1,32 @@
 import React from 'react';
 import { View, Text, FlatList } from "react-native";
-import Container from 'react-data-container';
 import PropTypes from 'prop-types';
+import { StackNavigator } from 'react-navigation';
 
-// Other
-import { downloadCharactersList } from "src/redux/actions/characters";
+// Components
+import List from "src/components/Characters/List";
+import Details from "src/components/Characters/Details";
 
-@Container({
-  isLoading: that => !that.props.characters,
-  onMount: that => that.props.downloadCharactersList(),
-  Error: that => null,
-  Loader: that => null,
-  Redux: {
-    mapStateToProps: (state, ownProps) => ({
-      characters: state.characters
-    }),
-    actions: { downloadCharactersList }
+const Navigator = StackNavigator({
+  List: {
+    screen: List
+  },
+  Details: {
+    screen: Details
   }
-})
+}, {
+  initialRouteName: "List",
+  headerMode: "none"
+});
+
 class Characters extends React.Component {
-  static propTypes = {
-    characters: PropTypes.object.isRequired
-  };
-
-  _keyExtractor = (item, index) => item.name;
-
-  _renderItem = ({item}) => {
-    return (
-      <View style={{marginBottom: 20}}>
-        <Text>{item.name}</Text>
-        <Text>{item.race}</Text>
-        <Text>{item.profession}</Text>
-        <Text>{item.level}</Text>
-      </View>
-    );
-  };
+  static router = Navigator.router;
 
   render() {
     return (
       <View style={{flex: 1}}>
-        <FlatList
-          data={this.props.characters.list}
-          keyExtractor={this._keyExtractor}
-          renderItem={this._renderItem}
+        <Navigator
+          navigation={this.props.navigation}
         />
       </View>
     );

@@ -6,6 +6,11 @@ export default (state, action) => {
         ...state,
         list: action.data
       };
+    case 'downloadCharactersDetails':
+      return {
+        ...state,
+        [action.data.name]: action.data
+      };
   default:
     return state;
   }

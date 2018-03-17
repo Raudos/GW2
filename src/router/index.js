@@ -15,11 +15,11 @@ import Raids from "src/components/Raids/index";
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
 
 const Navigator = DrawerNavigator({
-  Raids: {
-    screen: Raids
-  },
   Characters: {
     screen: Characters
+  },
+  Raids: {
+    screen: Raids
   },
   Exchange: {
     screen: Exchange

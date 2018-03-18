@@ -11,7 +11,10 @@ const initialStoreObj = {
   dailies: null,
   exchange: null,
   characters: null,
-  raids: null
+  raids: null,
+  items: {
+
+  }
 };
 
 export const initialStore = initialStoreObj;

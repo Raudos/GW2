@@ -8,7 +8,9 @@ import { downloadCharactersList } from "src/redux/actions/characters";
 
 @Container({
   isLoading: that => !that.props.charactersList,
-  onMount: that => that.props.downloadCharactersList(),
+  onMount: that => {
+    that.props.charactersList ? null : that.props.downloadCharactersList();
+  },
   Error: that => null,
   Loader: that => <View><Text>Loading</Text></View>,
   Redux: {

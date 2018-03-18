@@ -1,4 +1,5 @@
 import Request from "src/reusables/request";
+import R from "ramda";
 
 function getCharacter(apiKey, name = false, category = "") {
   const headers = {
@@ -28,12 +29,61 @@ class Character {
     };
   };
 
-  isCharacterDownloaded = (dispatch) => {
-    if (this.data.inventory && this.data.equipment) {
-      dispatch({
-        type: "downloadCharactersDetails",
-        data: this.data
+  getItemsIdsArr = (getState) => {
+    // Create an array of item ids from inventory and equipment
+    // Return array without any duplicates, which is filtered against currently downloaded item details
+    const idsArr = [];
+    const currentItemsDetails = getState().items;
+
+    this.data.equipment.forEach(item => {
+      idsArr.push(item.id);
+    });
+
+    this.data.inventory.forEach(bag => {
+      idsArr.push(bag.id);
+
+      bag.inventory.forEach(item => {
+        if (item) {
+          idsArr.push(item.id);
+        };
       });
+    });
+
+    return R.uniq(idsArr).filter(item => !currentItemsDetails[item.id]);
+  };
+
+  downloadDetails = (dispatch, getState) => {
+    // Download basic data of each item currently on character
+
+    const apiKey = getState().apiKey;
+
+    getCharacter(apiKey, encodeURI(this.data.name), "equipment").then(apiData => {
+      this.updateCharactersData("equipment", apiData.data.equipment);
+      this.isIdsFetchingCompleted(dispatch, getState);
+    }).catch(e => console.log(e));
+
+    getCharacter(apiKey, encodeURI(this.data.name), "inventory").then(apiData => {
+      this.updateCharactersData("inventory", apiData.data.bags);
+      this.isIdsFetchingCompleted(dispatch, getState);
+    }).catch(e => console.log(e));
+  };
+
+  isIdsFetchingCompleted = (dispatch, getState) => {
+    // After downloading all ids start downloading missing items descriptions and data
+
+    if (this.data.inventory && this.data.equipment) {
+      Request({
+        url: `https://api.guildwars2.com/v2/items?ids=${this.getItemsIdsArr(getState).join(",")}`,
+      }).then(apiData => {
+        // Update store
+        dispatch({
+          type: "downloadCharactersDetails",
+          data: {
+            ...this.data,
+            items: apiData.data
+          }
+        });
+      }).catch(e => console.log(e));
     }
   };
 
@@ -42,22 +92,13 @@ class Character {
   };
 };
 
-function downloadCharactersDetails(apiKey, charactersData, dispatch) {
-  const characters = {};
+export const downloadCharactersDetails = id => {
+  return (dispatch, getState) => {
+    const coreData = getState().characters.list.filter(character => character.name === id)[0];
+    const charactersDetails = new Character(id, coreData);
 
-  charactersData.forEach(character => {
-    characters[character.name] = new Character(character.name, character);
-
-    getCharacter(apiKey, encodeURI(character.name), "equipment").then(apiData => {
-      characters[character.name].updateCharactersData("equipment", apiData.data.equipment);
-      characters[character.name].isCharacterDownloaded(dispatch);
-    }).catch(e => console.log(e));
-
-    getCharacter(apiKey, encodeURI(character.name), "inventory").then(apiData => {
-      characters[character.name].updateCharactersData("inventory", apiData.data.bags);
-      characters[character.name].isCharacterDownloaded(dispatch);
-    }).catch(e => console.log(e));
-  });
+    charactersDetails.downloadDetails(dispatch, getState);
+  };
 };
 
 export const downloadCharactersList = () => {
@@ -67,8 +108,6 @@ export const downloadCharactersList = () => {
 
     function areCharactersFetched(allChars, downloadedChars, dispatch) {
       if (allChars.length === downloadedChars.length) {
-        downloadCharactersDetails(apiKey, downloadedChars, dispatch);
-
         dispatch({
           type: "downloadCharactersList",
           data: detailedCharacters

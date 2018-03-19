@@ -14,7 +14,8 @@ const initialStoreObj = {
   raids: null,
   items: {
 
-  }
+  },
+  guilds: null
 };
 
 export const initialStore = initialStoreObj;

@@ -25,8 +25,8 @@ Research needed for suplementary data source like avatars, images, icons and flu
   * Characters status
     * <del>Characters list</del>
     * Item search across all Characters
-    * Characters bags, eq
-  * Guilds status and current GMOTD
+    * <del>Characters bags, eq</del>
+  * <del>Guilds status and current GMOTD</del>
   * Achievements
   * Exchange
     * <del>Predefined amounts</del>
@@ -35,3 +35,4 @@ Research needed for suplementary data source like avatars, images, icons and flu
   * Raids
     * <del>Raids list</del>
     * <del>Raids reset + raids account status</del>
+* Error handling

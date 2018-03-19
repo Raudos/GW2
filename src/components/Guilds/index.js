@@ -1,25 +1,25 @@
 import React from 'react';
-import { View, Text, FlatList } from "react-native";
+import { View, Text } from "react-native";
 import PropTypes from 'prop-types';
 import { StackNavigator } from 'react-navigation';
 
 // Components
-import List from "src/components/Characters/List";
-import Details from "src/components/Characters/Details";
+import List from "src/components/Guilds/List";
+import Details from "src/components/Guilds/Details";
 
 const Navigator = StackNavigator({
-  CharactersList: {
+  GuildsList: {
     screen: List
   },
-  CharactersDetails: {
+  GuildsDetails: {
     screen: Details
   }
 }, {
-  initialRouteName: "CharactersList",
+  initialRouteName: "GuildsList",
   headerMode: "none"
 });
 
-class Characters extends React.Component {
+class Guilds extends React.Component {
   static router = Navigator.router;
 
   render() {
@@ -33,4 +33,4 @@ class Characters extends React.Component {
   };
 };
 
-export default Characters;
+export default Guilds;

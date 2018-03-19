@@ -4,36 +4,33 @@ import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
 // Other
-import { downloadCharactersList } from "src/redux/actions/characters";
+import { downloadGuildsList } from "src/redux/actions/guilds";
 
 @Container({
-  isLoading: that => !that.props.charactersList,
+  isLoading: that => !that.props.guildsList,
   onMount: that => {
-    that.props.charactersList ? null : that.props.downloadCharactersList();
+    that.props.guildsList ? null : that.props.downloadGuildsList();
   },
   Error: that => null,
   Loader: that => <View><Text>Loading</Text></View>,
   Redux: {
     mapStateToProps: (state, ownProps) => ({
-      charactersList: state.characters ? state.characters.list : false
+      guildsList: state.guilds ? state.guilds.list : false
     }),
-    actions: { downloadCharactersList }
+    actions: { downloadGuildsList }
   }
 })
-class CharactersList extends React.Component {
+class GuildsList extends React.Component {
   static propTypes = {
-    characters: PropTypes.object.isRequired
+    guilds: PropTypes.object.isRequired
   };
 
   _keyExtractor = (item, index) => item.name;
 
   _renderItem = ({item}) => {
     return (
-      <TouchableOpacity style={{marginBottom: 20}} onPress={() => this.props.navigation.navigate("CharactersDetails", {id: item.name})}>
+      <TouchableOpacity style={{marginBottom: 20}} onPress={() => this.props.navigation.navigate("GuildsDetails", {id: item.id})}>
         <Text>{item.name}</Text>
-        <Text>{item.race}</Text>
-        <Text>{item.profession}</Text>
-        <Text>{item.level}</Text>
       </TouchableOpacity>
     );
   };
@@ -42,7 +39,7 @@ class CharactersList extends React.Component {
     return (
       <View style={{flex: 1}}>
         <FlatList
-          data={this.props.charactersList}
+          data={this.props.guildsList}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
@@ -51,4 +48,4 @@ class CharactersList extends React.Component {
   };
 };
 
-export default CharactersList;
+export default GuildsList;

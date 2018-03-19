@@ -10,11 +10,15 @@ import Dailies from 'src/components/Dailies/index';
 import Exchange from 'src/components/Exchange/index';
 import Characters from "src/components/Characters/index";
 import Raids from "src/components/Raids/index";
+import Guilds from "src/components/Guilds/index";
 
 // Other
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
 
 const Navigator = DrawerNavigator({
+  Guilds: {
+    screen: Guilds
+  },
   Characters: {
     screen: Characters
   },

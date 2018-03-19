@@ -38,28 +38,26 @@ function isRaidsFetchingCompleted(gameRaids, detailedRaidsData, dispatch) {
 
 export const downloadRaids = () => {
   return (dispatch, getState) => {
-    const detailedRaids = {
-      accountLock: null,
-      raidsData: []
-    };
+    const apiKey = getState().apiKey;
 
     fetchRaids().then(apiData => {
-      apiData.data.forEach(id => {
-        fetchRaids(null, id).then(detailedRaidData => {
-          detailedRaids.raidsData.push(detailedRaidData.data);
+      const detailedRaidDataPromises = apiData.data.map(id => new Promise((resolve, reject) => {
+        fetchRaids(null, id).then(detailedRaidData => resolve(detailedRaidData.data));
+      }));
 
-          isRaidsFetchingCompleted(apiData.data, detailedRaids, dispatch);
-        }).catch(e => console.log(e));
+      const accountRaidLockDataPromises = new Promise((resolve, reject) => {
+        fetchRaids().then(accountRaidLockData => resolve(accountRaidLockData.data));
       });
 
-      fetchRaids(getState().apiKey).then(accountRaidsData => {
-        detailedRaids.accountLock = accountRaidsData.data;
 
-        isRaidsFetchingCompleted(apiData.data, detailedRaids, dispatch);
-      }).catch(e => {
-        // TODO
-        // allow this to do through without apiKey, to only show raids list without information about locked enocunters
-        detailedRaids.accountLock = true;
+      Promise.all(detailedRaidDataPromises.concat(accountRaidLockDataPromises)).then(values => {
+        dispatch({
+          type: "downloadRaids",
+          data: transformRaidData({
+            accountLock: values[3],
+            raidsData: [values[0], values[1], values[2]]
+          })
+        });
       });
     }).catch(e => console.log(e));
   };

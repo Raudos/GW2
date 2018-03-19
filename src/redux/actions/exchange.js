@@ -47,40 +47,24 @@ const coinsSetValues = [2000000, 4000000, 8000000, 14000000];
 
 export const getExchangeRates = () => {
   return (dispatch, getState) => {
-    function isFetchingFinished(fetchedData) {
-      if (fetchedData.gems.length === gemsSetValues.length && fetchedData.coins.length === coinsSetValues.length) {
-        dispatch({
-          type: "downloadBasicExchange",
-          data: fetchedData
-        });
-      }
-    };
+    const gemsValuesPromisesArr = gemsSetValues.map(int => new Promise((resolve, reject) => {
+      fetchGems(int).then(apiData => resolve({int, ...apiData.data}));
+    }));
+    const coinsValuesPromisesArr = coinsSetValues.map(int => new Promise((resolve, reject) => {
+      fetchCoins(int).then(apiData => resolve({int, ...apiData.data}));
+    }));
 
-    const fetchedData = {
-      gems: [],
-      coins: []
-    };
+    Promise.all(gemsValuesPromisesArr.concat(coinsValuesPromisesArr)).then(values => {
+      const gems = values.slice(0, gemsSetValues.length);
+      const coins = values.slice(gemsSetValues.length, values.length);
 
-    gemsSetValues.forEach(int => {
-      fetchGems(int).then(apiData => {
-        fetchedData.gems.push({
-          int,
-          ...apiData.data
-        });
-
-        isFetchingFinished(fetchedData);
-      }).catch(e => console.log(e));
-    });
-
-    coinsSetValues.forEach(int => {
-      fetchCoins(int).then(apiData => {
-        fetchedData.coins.push({
-          int,
-          ...apiData.data
-        });
-
-        isFetchingFinished(fetchedData);
-      }).catch(e => console.log(e));
-    });
+      dispatch({
+        type: "downloadBasicExchange",
+        data: {
+          gems,
+          coins
+        }
+      });
+    }).catch(e => console.log(e));
   };
 };

@@ -54,37 +54,37 @@ class Character {
 
   downloadDetails = (dispatch, getState) => {
     // Download basic data of each item currently on character
-
     const apiKey = getState().apiKey;
+    const equipment = new Promise((resolve, reject) => {
+      getCharacter(apiKey, encodeURI(this.data.name), "equipment").then(apiData => resolve(apiData.data));
+    });
+    const inventory = new Promise((resolve, reject) => {
+      getCharacter(apiKey, encodeURI(this.data.name), "inventory").then(apiData => resolve(apiData.data));
+    });
 
-    getCharacter(apiKey, encodeURI(this.data.name), "equipment").then(apiData => {
-      this.updateCharactersData("equipment", apiData.data.equipment);
-      this.isIdsFetchingCompleted(dispatch, getState);
-    }).catch(e => console.log(e));
+    Promise.all([equipment, inventory]).then(values => {
+      this.updateCharactersData("equipment", values[0].equipment);
+      this.updateCharactersData("inventory", values[1].bags);
 
-    getCharacter(apiKey, encodeURI(this.data.name), "inventory").then(apiData => {
-      this.updateCharactersData("inventory", apiData.data.bags);
-      this.isIdsFetchingCompleted(dispatch, getState);
-    }).catch(e => console.log(e));
+      this.downloadMissingItemsDetails(dispatch, getState);
+    });
   };
 
-  isIdsFetchingCompleted = (dispatch, getState) => {
+  downloadMissingItemsDetails = (dispatch, getState) => {
     // After downloading all ids start downloading missing items descriptions and data
 
-    if (this.data.inventory && this.data.equipment) {
-      Request({
-        url: `https://api.guildwars2.com/v2/items?ids=${this.getItemsIdsArr(getState).join(",")}`,
-      }).then(apiData => {
-        // Update store
-        dispatch({
-          type: "downloadCharactersDetails",
-          data: {
-            ...this.data,
-            items: apiData.data
-          }
-        });
-      }).catch(e => console.log(e));
-    }
+    Request({
+      url: `https://api.guildwars2.com/v2/items?ids=${this.getItemsIdsArr(getState).join(",")}`,
+    }).then(apiData => {
+      // Update store
+      dispatch({
+        type: "downloadCharactersDetails",
+        data: {
+          ...this.data,
+          items: apiData.data
+        }
+      });
+    }).catch(e => console.log(e));
   };
 
   updateCharactersData = (key, val) => {
@@ -104,27 +104,19 @@ export const downloadCharactersDetails = id => {
 export const downloadCharactersList = () => {
   return (dispatch, getState) => {
     const apiKey = getState().apiKey;
-    const detailedCharacters = [];
-
-    function areCharactersFetched(allChars, downloadedChars, dispatch) {
-      if (allChars.length === downloadedChars.length) {
-        dispatch({
-          type: "downloadCharactersList",
-          data: detailedCharacters
-        });
-      }
-    };
-
     // TODO
     // Decide how much additional data list needs to fetch, this means avatars, guild names, titles and such
 
     getCharacter(apiKey).then(apiData => {
-      apiData.data.forEach(name => {
-        getCharacter(apiKey, encodeURI(name), "core").then(detailedCharacterData => {
-          detailedCharacters.push(detailedCharacterData.data);
-
-          areCharactersFetched(apiData.data, detailedCharacters, dispatch);
-        }).catch(e => console.log(e));
+      Promise.all(apiData.data.map(name => {
+        return new Promise((resolve, reject) => {
+          getCharacter(apiKey, encodeURI(name), "core").then(detailedCharactersData => resolve(detailedCharactersData.data));
+        });
+      })).then(values => {
+        dispatch({
+          type: "downloadCharactersList",
+          data: values
+        });
       });
     });
   };

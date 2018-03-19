@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
@@ -42,7 +42,11 @@ class Details extends React.Component {
 
             {equipment.map((item, index) => {
               if (item) {
-                return <Text key={index}>{`${item.slot} - ${items[item.id].name}`}</Text>;
+                return (
+                  <TouchableOpacity key={index} onPress={() => this.props.navigation.navigate("ItemsDetails", {id: item.id})}>
+                    <Text>{`${item.slot} - ${items[item.id].name}`}</Text>
+                  </TouchableOpacity>
+                );
               }
 
               return <Text>Empty slot</Text>;
@@ -59,7 +63,11 @@ class Details extends React.Component {
                 <View>
                   {bag.inventory.map((item, index) => {
                     if (item) {
-                      return <Text key={index}>{`${items[item.id].name} - ${item.count}`}</Text>;
+                      return (
+                        <TouchableOpacity key={index} onPress={() => this.props.navigation.navigate("ItemsDetails", {id: item.id})}>
+                          <Text>{`${items[item.id].name} - ${item.count}`}</Text>
+                        </TouchableOpacity>
+                      );
                     }
 
                     return <Text key={index}>Empty slot</Text>;

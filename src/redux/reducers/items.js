@@ -16,6 +16,11 @@ export default (state, action) => {
         ...state,
         ...idsIntoKeys(action.data.items)
       };
+    case 'searchPrepared':
+      return {
+        ...state,
+        searchPrepared: true
+      };
   default:
     return state;
   }

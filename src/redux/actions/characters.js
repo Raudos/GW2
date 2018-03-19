@@ -19,7 +19,7 @@ function getCharacter(apiKey, name = false, category = "") {
   });
 };
 
-class Character {
+export class Character {
   constructor(name, core) {
     this.data = {
       name,
@@ -62,18 +62,18 @@ class Character {
       getCharacter(apiKey, encodeURI(this.data.name), "inventory").then(apiData => resolve(apiData.data));
     });
 
-    Promise.all([equipment, inventory]).then(values => {
+    return Promise.all([equipment, inventory]).then(values => {
       this.updateCharactersData("equipment", values[0].equipment);
       this.updateCharactersData("inventory", values[1].bags);
 
-      this.downloadMissingItemsDetails(dispatch, getState);
+      return this.downloadMissingItemsDetails(dispatch, getState);
     });
   };
 
   downloadMissingItemsDetails = (dispatch, getState) => {
     // After downloading all ids start downloading missing items descriptions and data
 
-    Request({
+    return Request({
       url: `https://api.guildwars2.com/v2/items?ids=${this.getItemsIdsArr(getState).join(",")}`,
     }).then(apiData => {
       // Update store
@@ -81,9 +81,14 @@ class Character {
         type: "downloadCharactersDetails",
         data: {
           ...this.data,
-          items: apiData.data
+          items: apiData.data.map(item => ({
+            ...item,
+            charId: this.data.name
+          }))
         }
       });
+
+      return apiData.data;
     }).catch(e => console.log(e));
   };
 
@@ -107,8 +112,8 @@ export const downloadCharactersList = () => {
     // TODO
     // Decide how much additional data list needs to fetch, this means avatars, guild names, titles and such
 
-    getCharacter(apiKey).then(apiData => {
-      Promise.all(apiData.data.map(name => {
+    return getCharacter(apiKey).then(apiData => {
+      return Promise.all(apiData.data.map(name => {
         return new Promise((resolve, reject) => {
           getCharacter(apiKey, encodeURI(name), "core").then(detailedCharactersData => resolve(detailedCharactersData.data));
         });
@@ -117,6 +122,8 @@ export const downloadCharactersList = () => {
           type: "downloadCharactersList",
           data: values
         });
+
+        return values;
       });
     });
   };

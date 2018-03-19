@@ -24,7 +24,7 @@ Research needed for suplementary data source like avatars, images, icons and flu
   * Trading Post
   * Characters status
     * <del>Characters list</del>
-    * Item search across all Characters
+    * <del>Item search across all Characters</del>
     * <del>Characters bags, eq</del>
   * <del>Guilds status and current GMOTD</del>
   * Achievements
@@ -36,3 +36,6 @@ Research needed for suplementary data source like avatars, images, icons and flu
     * <del>Raids list</del>
     * <del>Raids reset + raids account status</del>
 * Error handling
+
+## Bugs
+* Nested router onBack

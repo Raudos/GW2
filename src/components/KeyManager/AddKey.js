@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, ToastAndroid } from "react-native";
-import { Button } from 'react-native-elements'
+import { Button } from 'react-native-elements';
 
 export default class AddKey extends React.Component {
   state = {

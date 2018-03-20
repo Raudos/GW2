@@ -11,7 +11,7 @@ import Exchange from 'src/components/Exchange/index';
 import Characters from "src/components/Characters/index";
 import Raids from "src/components/Raids/index";
 import Guilds from "src/components/Guilds/index";
-import ItemSearch from "src/components/Items/index";
+import Items from "src/components/Items/index";
 
 // Other
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
@@ -20,8 +20,8 @@ const Navigator = DrawerNavigator({
   Characters: {
     screen: Characters
   },
-  ItemSearch: {
-    screen: ItemSearch
+  Items: {
+    screen: Items
   },
   Guilds: {
     screen: Guilds
@@ -39,7 +39,7 @@ const Navigator = DrawerNavigator({
     screen: KeyManager
   }
 }, {
-  initialRouteName: "Characters",
+  initialRouteName: "KeyManager",
   navigationOptions: {
     header: null
   }

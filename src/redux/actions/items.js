@@ -28,7 +28,7 @@ export const prepareSearch = () => {
   return (dispatch, getState) => {
     const characters = getState().characters;
 
-    if (characters.list) {
+    if (characters && characters.list) {
       downloadAllItems(characters.list, dispatch, getState);
     } else {
       downloadCharactersList()(dispatch, getState).then(charactersList => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
@@ -16,19 +16,36 @@ import { downloadItemsDetails } from "src/redux/actions/items";
   Redux: {
     mapStateToProps: (state, ownProps) => ({
       itemsDetails: state.items[ownProps.navigation.state.params.id],
+      searchPrepared: state.items.searchPrepared
     }),
     actions: { downloadItemsDetails }
   }
 })
 class Details extends React.Component {
   render() {
-    const { name, type, icon } = this.props.itemsDetails;
+    const { name, type, icon, charIds } = this.props.itemsDetails;
 
     return (
       <View style={{flex: 1}}>
         <Text>{name}</Text>
         <Text>{type}</Text>
         <Image source={{uri: icon}} style={{height: 100, width: 100}}/>
+
+        {this.props.searchPrepared ?
+          <View style={{marginTop: 20}}>
+            <Text>On characters:</Text>
+
+            {charIds.map(id => (
+              <TouchableOpacity key={id} onPress={() => this.props.navigation.navigate("CharactersDetails", {id})}>
+                <Text>{id}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          :
+
+          null
+        }
       </View>
     );
   };

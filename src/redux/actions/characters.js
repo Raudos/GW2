@@ -29,7 +29,7 @@ export class Character {
     };
   };
 
-  getItemsIdsArr = (getState) => {
+  getItems = (getState) => {
     // Create an array of item ids from inventory and equipment
     // Return array without any duplicates, which is filtered against currently downloaded item details
     const idsArr = [];
@@ -49,7 +49,13 @@ export class Character {
       });
     });
 
-    return R.uniq(idsArr).filter(item => !currentItemsDetails[item.id]);
+    const uniqueCharacterItemIds = R.uniq(idsArr);
+    const newItemIdsArr = uniqueCharacterItemIds.filter(id => !currentItemsDetails[id]);
+
+    return {
+      newItemIdsArr,
+      uniqueCharacterItemIds
+    };
   };
 
   downloadDetails = (dispatch, getState) => {
@@ -72,19 +78,17 @@ export class Character {
 
   downloadMissingItemsDetails = (dispatch, getState) => {
     // After downloading all ids start downloading missing items descriptions and data
+    const itemIds = this.getItems(getState);
 
     return Request({
-      url: `https://api.guildwars2.com/v2/items?ids=${this.getItemsIdsArr(getState).join(",")}`,
+      url: `https://api.guildwars2.com/v2/items?ids=${itemIds.newItemIdsArr.join(",")}`,
     }).then(apiData => {
-      // Update store
       dispatch({
         type: "downloadCharactersDetails",
         data: {
           ...this.data,
-          items: apiData.data.map(item => ({
-            ...item,
-            charId: this.data.name
-          }))
+          charItemIds: itemIds.uniqueCharacterItemIds,
+          items: apiData.data
         }
       });
 

@@ -36,6 +36,7 @@ Research needed for suplementary data source like avatars, images, icons and flu
     * <del>Raids list</del>
     * <del>Raids reset + raids account status</del>
 * Error handling
+* Swap onto different navigator
 
 ## Bugs
-* Nested router onBack
+* <del>Nested router onBack</del>

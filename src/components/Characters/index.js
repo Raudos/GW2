@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, FlatList } from "react-native";
 import PropTypes from 'prop-types';
-import { StackNavigator } from 'react-navigation';
+import { SwitchNavigator } from 'react-navigation';
 
 // Components
 import List from "src/components/Characters/List";
 import Details from "src/components/Characters/Details";
 
-const Navigator = StackNavigator({
+const Navigator = SwitchNavigator({
   CharactersList: {
     screen: List
   },
@@ -24,11 +24,9 @@ class Characters extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <Navigator
-          navigation={this.props.navigation}
-        />
-      </View>
+      <Navigator
+        navigation={this.props.navigation}
+      />
     );
   };
 };

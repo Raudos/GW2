@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text } from "react-native";
 import PropTypes from 'prop-types';
-import { StackNavigator } from 'react-navigation';
+import { SwitchNavigator } from 'react-navigation';
 
 // Components
 import ItemsSearch from "src/components/Items/ItemsSearch";
 import Details from "src/components/Items/Details";
 
-const Navigator = StackNavigator({
+const Navigator = SwitchNavigator({
   ItemsSearch: {
     screen: ItemsSearch
   },
@@ -24,11 +24,9 @@ class Items extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <Navigator
-          navigation={this.props.navigation}
-        />
-      </View>
+      <Navigator
+        navigation={this.props.navigation}
+      />
     );
   };
 };

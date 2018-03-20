@@ -36,6 +36,7 @@ class ItemsSearch extends React.Component {
   };
 
   render() {
+    console.log("VKBLSDKJVBSDKJVLBKJSDBVKJSDBLVJKDSB");
     const filteredList = Object.values(this.props.items).filter(item => typeof item === "object" && item.name.toLowerCase().includes(this.state.input.toLowerCase()));
 
     return (

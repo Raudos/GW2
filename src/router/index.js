@@ -37,15 +37,9 @@ const Navigator = DrawerNavigator({
   },
   KeyManager: {
     screen: KeyManager
-  },
-  App: {
-    screen: props => (
-      <View>
-        <Text>App</Text>
-      </View>
-    )
   }
 }, {
+  initialRouteName: "Characters",
   navigationOptions: {
     header: null
   }

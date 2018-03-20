@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text } from "react-native";
 import PropTypes from 'prop-types';
-import { StackNavigator } from 'react-navigation';
+import { SwitchNavigator } from 'react-navigation';
 
 // Components
 import List from "src/components/Guilds/List";
 import Details from "src/components/Guilds/Details";
 
-const Navigator = StackNavigator({
+const Navigator = SwitchNavigator({
   GuildsList: {
     screen: List
   },
@@ -24,11 +24,9 @@ class Guilds extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <Navigator
-          navigation={this.props.navigation}
-        />
-      </View>
+      <Navigator
+        navigation={this.props.navigation}
+      />
     );
   };
 };

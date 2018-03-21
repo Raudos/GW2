@@ -3,6 +3,9 @@ import { View, Text, FlatList } from "react-native";
 import Container from 'react-data-container';
 import PropTypes from 'prop-types';
 
+// Components
+import Drawer from "src/router/Drawer";
+
 // Other
 import { downloadRaids } from "src/redux/actions/raids";
 
@@ -54,13 +57,13 @@ class Raids extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <Drawer navigation={this.props.navigation}>
         <FlatList
           data={this.props.raids.raidsData}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
-      </View>
+      </Drawer>
     );
   };
 };

@@ -6,6 +6,7 @@ import { SwitchNavigator } from 'react-navigation';
 // Components
 import List from "src/components/Characters/List";
 import Details from "src/components/Characters/Details";
+import Drawer from "src/router/Drawer";
 
 const Navigator = SwitchNavigator({
   CharactersList: {
@@ -24,9 +25,11 @@ class Characters extends React.Component {
 
   render() {
     return (
-      <Navigator
-        navigation={this.props.navigation}
-      />
+      <Drawer navigation={this.props.navigation}>
+        <Navigator
+          navigation={this.props.navigation}
+        />
+      </Drawer>
     );
   };
 };

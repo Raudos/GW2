@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from "react-native";
-import { DrawerNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import Container from 'react-data-container';
 import PropTypes from 'prop-types';
 
@@ -16,7 +16,7 @@ import Items from "src/components/Items/index";
 // Other
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
 
-const Navigator = DrawerNavigator({
+const Navigator = StackNavigator({
   Characters: {
     screen: Characters
   },

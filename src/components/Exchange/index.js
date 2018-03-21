@@ -6,6 +6,7 @@ import Container from 'react-data-container';
 import Tabs from "src/components/TabChanger";
 import Coins from "src/components/Exchange/Coins";
 import Gems from "src/components/Exchange/Gems";
+import Drawer from "src/router/Drawer";
 
 // Other
 import { getExchangeRates, coinsToGems, gemsToCoins } from "src/redux/actions/exchange";
@@ -25,19 +26,21 @@ import { getExchangeRates, coinsToGems, gemsToCoins } from "src/redux/actions/ex
 class Exchange extends React.Component {
   render() {
     return (
-      <Tabs
-        exchange={this.props.exchange}
-        coinsToGems={this.props.coinsToGems}
-        gemsToCoins={this.props.gemsToCoins}
-        tabs={[
-          {key: 'coins', title: "Gold"},
-          {key: 'gems', title: "Gems"},
-        ]}
-        components={{
-          coins: Coins,
-          gems: Gems
-        }}
-      />
+      <Drawer navigation={this.props.navigation}>
+        <Tabs
+          exchange={this.props.exchange}
+          coinsToGems={this.props.coinsToGems}
+          gemsToCoins={this.props.gemsToCoins}
+          tabs={[
+            {key: 'coins', title: "Gold"},
+            {key: 'gems', title: "Gems"},
+          ]}
+          components={{
+            coins: Coins,
+            gems: Gems
+          }}
+        />
+      </Drawer>
     );
   };
 };

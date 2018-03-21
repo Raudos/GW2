@@ -6,6 +6,7 @@ import { SwitchNavigator } from 'react-navigation';
 // Components
 import ItemsSearch from "src/components/Items/ItemsSearch";
 import Details from "src/components/Items/Details";
+import Drawer from "src/router/Drawer";
 
 const Navigator = SwitchNavigator({
   ItemsSearch: {
@@ -24,9 +25,11 @@ class Items extends React.Component {
 
   render() {
     return (
-      <Navigator
-        navigation={this.props.navigation}
-      />
+      <Drawer navigation={this.props.navigation}>
+        <Navigator
+          navigation={this.props.navigation}
+        />
+      </Drawer>
     );
   };
 };

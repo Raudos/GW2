@@ -6,6 +6,7 @@ import { SwitchNavigator } from 'react-navigation';
 // Components
 import List from "src/components/Guilds/List";
 import Details from "src/components/Guilds/Details";
+import Drawer from "src/router/Drawer";
 
 const Navigator = SwitchNavigator({
   GuildsList: {
@@ -24,9 +25,11 @@ class Guilds extends React.Component {
 
   render() {
     return (
-      <Navigator
-        navigation={this.props.navigation}
-      />
+      <Drawer navigation={this.props.navigation}>
+        <Navigator
+          navigation={this.props.navigation}
+        />
+      </Drawer>
     );
   };
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text } from "react-native";
-import { StackNavigator } from 'react-navigation';
+import { View, Text, BackHandler } from "react-native";
+import { StackNavigator, addNavigationHelpers, NavigationActions } from 'react-navigation';
 import Container from 'react-data-container';
 import PropTypes from 'prop-types';
 
@@ -18,6 +18,8 @@ import ItemsDetails from "src/components/Items/ItemsDetails";
 
 // Other
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
+import { navigate } from "src/redux/actions/navigation";
+import { addNavigationListener } from 'src/redux/store';
 
 const Navigator = StackNavigator({
   CharactersList: {
@@ -65,25 +67,53 @@ const Navigator = StackNavigator({
   Redux: {
     mapStateToProps: (state, ownProps) => ({
       apiKey: state.apiKey,
-      account: state.account
+      account: state.account,
+      navigation: state.navigation
     }),
-    actions: { addKey, deleteKey, addDefaultKey, retrieveKey }
+    actions: { addKey, deleteKey, addDefaultKey, retrieveKey, navigate }
   }
 })
 class NavigatorWithKey extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener("hardwareBackPress", this.handleBackNavigation);
+  };
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.handleBackNavigation);
+  };
+
+  handleBackNavigation = () => {
+    const { navigation, navigate } = this.props;
+
+    if (navigation.index === 0) {
+      return false;
+    }
+
+    navigate(NavigationActions.back());
+    return true;
+  };
+
   render() {
     return (
       <Navigator
+        navigation={addNavigationHelpers({
+          dispatch: this.props.navigate,
+          state: this.props.navigation,
+          addListener: addNavigationListener
+        })}
         screenProps={{
           addKey: this.props.addKey,
           deleteKey: this.props.deleteKey,
           addDefaultKey: this.props.addDefaultKey,
           apiKey: this.props.apiKey,
-          account: this.props.account
+          account: this.props.account,
+          reduxNavigation: this.props.navigation
         }}
       />
     );
   };
 };
+
+export { Navigator };
 
 export default NavigatorWithKey;

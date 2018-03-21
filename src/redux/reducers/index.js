@@ -6,6 +6,7 @@ import CharactersUpdater from "src/redux/reducers/characters";
 import RaidsUpdater from "src/redux/reducers/raids";
 import ItemsUpdater from "src/redux/reducers/items";
 import GuildsUpdater from "src/redux/reducers/guilds";
+import NavigationUpdater from "src/redux/reducers/navigation";
 
 export default (currentState, action) => {
   var nextState = {...currentState};
@@ -18,6 +19,7 @@ export default (currentState, action) => {
     characters: CharactersUpdater(currentState.characters, action),
     raids: RaidsUpdater(currentState.raids, action),
     items: ItemsUpdater(currentState.items, action),
-    guilds: GuildsUpdater(currentState.guilds, action)
+    guilds: GuildsUpdater(currentState.guilds, action),
+    navigation: NavigationUpdater(nextState.navigation, action)
   };
 };

@@ -36,7 +36,22 @@ const Menu = (props) => {
 
 export default class DrawerContainer extends React.Component {
   static propTypes = {
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
+    screenProps: PropTypes.shape({
+      reduxNavigation: PropTypes.object.isRequired
+    })
+  };
+
+  shouldComponentUpdate(nextProps) {
+    try {
+      const currentActiveRoute = nextProps.screenProps.reduxNavigation.routes.slice(-1)[0];
+      const containerRoute = this.props.navigation.state;
+
+      return currentActiveRoute.params.timestamp === containerRoute.params.timestamp;
+    } catch(e) {
+      // Juuuust in case
+      return true;
+    }
   };
 
   closeDrawer = () => {

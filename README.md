@@ -36,9 +36,9 @@ Research needed for suplementary data source like avatars, images, icons and flu
     * <del>Raids list</del>
     * <del>Raids reset + raids account status</del>
 * Error handling
-* Swap onto different navigator
+* <del>Swap onto different navigator</del>
 * Show fetching progress in loading component
-* Redux integration for navigation
+* <del>Redux integration for navigation</del>
 
 ## Bugs
 * <del>Nested router onBack</del>

@@ -3,6 +3,9 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
+// Components
+import Drawer from "src/router/Drawer";
+
 // Other
 import { downloadCharactersDetails } from "src/redux/actions/characters";
 
@@ -30,7 +33,7 @@ class Details extends React.Component {
     // its not like there will be any operations on em anyway
 
     return (
-      <View style={{flex: 1}}>
+      <Drawer navigation={this.props.navigation}>
         <ScrollView>
           <Text>{core.name}</Text>
           <Text>{core.race}</Text>
@@ -77,7 +80,7 @@ class Details extends React.Component {
             ))}
           </View>
         </ScrollView>
-      </View>
+      </Drawer>
     );
   };
 };

@@ -8,23 +8,35 @@ import PropTypes from 'prop-types';
 import KeyManager from "src/components/KeyManager/index";
 import Dailies from 'src/components/Dailies/index';
 import Exchange from 'src/components/Exchange/index';
-import Characters from "src/components/Characters/index";
+import CharactersList from "src/components/Characters/CharactersList";
+import CharactersDetails from "src/components/Characters/CharactersDetails";
 import Raids from "src/components/Raids/index";
-import Guilds from "src/components/Guilds/index";
-import Items from "src/components/Items/index";
+import GuildsList from "src/components/Guilds/GuildsList";
+import GuildsDetails from "src/components/Guilds/GuildsDetails";
+import ItemsSearch from "src/components/Items/ItemsSearch";
+import ItemsDetails from "src/components/Items/ItemsDetails";
 
 // Other
 import { addKey, deleteKey, addDefaultKey, retrieveKey } from "src/redux/actions/key";
 
 const Navigator = StackNavigator({
-  Characters: {
-    screen: Characters
+  CharactersList: {
+    screen: CharactersList
   },
-  Items: {
-    screen: Items
+  CharactersDetails: {
+    screen: CharactersDetails
   },
-  Guilds: {
-    screen: Guilds
+  GuildsList: {
+    screen: GuildsList
+  },
+  GuildsDetails: {
+    screen: GuildsDetails
+  },
+  ItemsSearch: {
+    screen: ItemsSearch
+  },
+  ItemsDetails: {
+    screen: ItemsDetails
   },
   Raids: {
     screen: Raids

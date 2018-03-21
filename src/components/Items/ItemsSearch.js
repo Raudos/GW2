@@ -3,6 +3,9 @@ import { View, Text, FlatList, TouchableOpacity, TextInput } from "react-native"
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
+// Components
+import Drawer from "src/router/Drawer";
+
 // Other
 import { prepareSearch } from "src/redux/actions/items";
 
@@ -39,7 +42,7 @@ class ItemsSearch extends React.Component {
     const filteredList = Object.values(this.props.items).filter(item => typeof item === "object" && item.name.toLowerCase().includes(this.state.input.toLowerCase()));
 
     return (
-      <View style={{flex: 1}}>
+      <Drawer navigation={this.props.navigation}>
         <TextInput
           onChangeText={input => this.setState({input})}
           value={this.state.input}
@@ -50,7 +53,7 @@ class ItemsSearch extends React.Component {
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
-      </View>
+      </Drawer>
     );
   };
 };

@@ -3,6 +3,9 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
+// Components
+import Drawer from "src/router/Drawer";
+
 // Other
 import { downloadGuildsList } from "src/redux/actions/guilds";
 
@@ -37,13 +40,13 @@ class GuildsList extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <Drawer navigation={this.props.navigation}>
         <FlatList
           data={this.props.guildsList}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
-      </View>
+      </Drawer>
     );
   };
 };

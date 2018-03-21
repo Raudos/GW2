@@ -3,6 +3,9 @@ import { View, Text, ScrollView } from "react-native";
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
+// Components
+import Drawer from "src/router/Drawer";
+
 // Other
 import { downloadGuildsDetails } from "src/redux/actions/guilds";
 
@@ -25,7 +28,7 @@ class Details extends React.Component {
     const { name, level, motd, tag, members } = this.props.guildsDetails;
 
     return (
-      <View style={{flex: 1}}>
+      <Drawer navigation={this.props.navigation}>
         <ScrollView>
           <Text>{name}</Text>
           <Text>{tag}</Text>
@@ -44,7 +47,7 @@ class Details extends React.Component {
             ))}
           </View>
         </ScrollView>
-      </View>
+      </Drawer>
     );
   };
 };

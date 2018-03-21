@@ -11,9 +11,9 @@ const MenuButton = props => (
 
 const routes = [
   "KeyManager",
-  "Characters",
-  "Items",
-  "Guilds",
+  "CharactersList",
+  "ItemsSearch",
+  "GuildsList",
   "Raids",
   "Exchange",
   "Dailies"

@@ -3,6 +3,9 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
+// Components
+import Drawer from "src/router/Drawer";
+
 // Other
 import { downloadCharactersList } from "src/redux/actions/characters";
 
@@ -40,13 +43,13 @@ class CharactersList extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <Drawer navigation={this.props.navigation}>
         <FlatList
           data={this.props.charactersList}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
-      </View>
+      </Drawer>
     );
   };
 };

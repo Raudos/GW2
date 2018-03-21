@@ -3,6 +3,9 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
+// Components
+import Drawer from "src/router/Drawer";
+
 // Other
 import { downloadItemsDetails } from "src/redux/actions/items";
 
@@ -26,7 +29,7 @@ class Details extends React.Component {
     const { name, type, icon, charIds } = this.props.itemsDetails;
 
     return (
-      <View style={{flex: 1}}>
+      <Drawer navigation={this.props.navigation}>
         <Text>{name}</Text>
         <Text>{type}</Text>
         <Image source={{uri: icon}} style={{height: 100, width: 100}}/>
@@ -46,7 +49,7 @@ class Details extends React.Component {
 
           null
         }
-      </View>
+      </Drawer>
     );
   };
 };

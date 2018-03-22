@@ -5,7 +5,7 @@ import Container from 'react-data-container';
 // Components
 import Tabs from "src/components/TabChanger";
 import DailyTab from "src/components/Dailies/DailyTab";
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { downloadDailies } from "src/redux/actions/dailies";
@@ -25,7 +25,7 @@ import { downloadDailies } from "src/redux/actions/dailies";
 class Dailies extends React.Component {
   render() {
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <Tabs
           dailies={this.props.dailies}
           tabs={[

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
 // Components
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { prepareSearch } from "src/redux/actions/items";
@@ -42,7 +42,7 @@ class ItemsSearch extends React.Component {
     const filteredList = Object.values(this.props.items).filter(item => typeof item === "object" && item.name.toLowerCase().includes(this.state.input.toLowerCase()));
 
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <TextInput
           onChangeText={input => this.setState({input})}
           value={this.state.input}

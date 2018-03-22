@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
 // Components
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { downloadItemsDetails } from "src/redux/actions/items";
@@ -29,7 +29,7 @@ class Details extends React.Component {
     const { name, type, icon, charIds } = this.props.itemsDetails;
 
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <Text>{name}</Text>
         <Text>{type}</Text>
         <Image source={{uri: icon}} style={{height: 100, width: 100}}/>

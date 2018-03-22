@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
 // Components
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { downloadCharactersList } from "src/redux/actions/characters";
@@ -43,7 +43,7 @@ class CharactersList extends React.Component {
 
   render() {
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <FlatList
           data={this.props.charactersList}
           keyExtractor={this._keyExtractor}

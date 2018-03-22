@@ -6,7 +6,7 @@ import Container from 'react-data-container';
 import Tabs from "src/components/TabChanger";
 import Coins from "src/components/Exchange/Coins";
 import Gems from "src/components/Exchange/Gems";
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { getExchangeRates, coinsToGems, gemsToCoins } from "src/redux/actions/exchange";
@@ -26,7 +26,7 @@ import { getExchangeRates, coinsToGems, gemsToCoins } from "src/redux/actions/ex
 class Exchange extends React.Component {
   render() {
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <Tabs
           exchange={this.props.exchange}
           coinsToGems={this.props.coinsToGems}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
 // Components
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { downloadGuildsDetails } from "src/redux/actions/guilds";
@@ -28,7 +28,7 @@ class Details extends React.Component {
     const { name, level, motd, tag, members } = this.props.guildsDetails;
 
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <ScrollView>
           <Text>{name}</Text>
           <Text>{tag}</Text>

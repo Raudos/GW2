@@ -4,7 +4,7 @@ import Container from 'react-data-container';
 import PropTypes from 'prop-types';
 
 // Components
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { downloadRaids } from "src/redux/actions/raids";
@@ -57,7 +57,7 @@ class Raids extends React.Component {
 
   render() {
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <FlatList
           data={this.props.raids.raidsData}
           keyExtractor={this._keyExtractor}

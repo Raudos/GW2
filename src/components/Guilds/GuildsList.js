@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-data-container';
 
 // Components
-import Drawer from "src/router/Drawer";
+import Drawer from "src/router/Drawer/index";
 
 // Other
 import { downloadGuildsList } from "src/redux/actions/guilds";
@@ -40,7 +40,7 @@ class GuildsList extends React.Component {
 
   render() {
     return (
-      <Drawer navigation={this.props.navigation}>
+      <Drawer navigation={this.props.navigation} account={this.props.screenProps.account}>
         <FlatList
           data={this.props.guildsList}
           keyExtractor={this._keyExtractor}
